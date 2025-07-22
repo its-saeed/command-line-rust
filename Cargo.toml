@@ -1,5 +1,4 @@
 [workspace]
-members = [
-  "1-hello",
-  "2-echor"
-]
+members = ["1-hello", "2-echor"]
+
+resolver = "3"

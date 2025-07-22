@@ -12,6 +12,12 @@ fn main() {
                 .action(ArgAction::SetTrue),
         )
         .arg(
+            Arg::new("omit_delimiter")
+                .short('s')
+                .help("Do not separate texts")
+                .action(ArgAction::SetTrue),
+        )
+        .arg(
             Arg::new("text")
                 .value_name("TEXT")
                 .action(ArgAction::Append)
@@ -19,6 +25,8 @@ fn main() {
         )
         .get_matches();
 
+    let omit_delimiter = matches.get_flag("omit_delimiter");
+    let delimiter = if omit_delimiter { "" } else { " " };
     let omit_newline = matches.get_flag("omit_newline");
     let texts = matches
         .get_many::<String>("text")
@@ -27,8 +35,8 @@ fn main() {
         .collect::<Vec<_>>();
 
     if omit_newline {
-        print!("{}", texts.join(" "));
+        print!("{}", texts.join(delimiter));
     } else {
-        println!("{}", texts.join(" "));
+        println!("{}", texts.join(delimiter));
     }
 }

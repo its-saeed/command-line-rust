@@ -33,3 +33,8 @@ fn test_hello1n() {
 fn test_hello2n() {
     run_test(&["-n", "Hello", "there"], "tests/expected/hello2.n.txt");
 }
+
+#[test]
+fn test_hello1s() {
+    run_test(&["-s", "1", "2", "3", "4"], "tests/expected/hello1.s.txt");
+}
