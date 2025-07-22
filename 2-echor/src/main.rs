@@ -18,6 +18,13 @@ fn main() {
                 .action(ArgAction::SetTrue),
         )
         .arg(
+            Arg::new("delimiter")
+                .short('d')
+                .conflicts_with("omit_delimiter")
+                .long("delim")
+                .help("Delimiter"),
+        )
+        .arg(
             Arg::new("text")
                 .value_name("TEXT")
                 .action(ArgAction::Append)
@@ -25,8 +32,18 @@ fn main() {
         )
         .get_matches();
 
+    let delimiter = matches.get_one::<String>("delimiter");
     let omit_delimiter = matches.get_flag("omit_delimiter");
-    let delimiter = if omit_delimiter { "" } else { " " };
+    let delimiter = match delimiter {
+        Some(delimiter) => delimiter,
+        None => {
+            if omit_delimiter {
+                ""
+            } else {
+                " "
+            }
+        }
+    };
     let omit_newline = matches.get_flag("omit_newline");
     let texts = matches
         .get_many::<String>("text")
